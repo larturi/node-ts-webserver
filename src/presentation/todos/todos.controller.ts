@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
-import { prisma } from '../../data/postgres/index'
 import { CreateTodoDto, UpdateTodoDto } from '../../domain/dtos'
+import { prisma } from '../../data/postgres/index'
 
 export class TodosController {
   public getTodos = async (req: Request, res: Response) => {
