@@ -8,14 +8,14 @@ interface Options {
 }
 
 export class Server {
-  private app = express()
+  public readonly app = express()
+  private serverListener?: any
   private readonly port: number
   private readonly publicPath: string
   private readonly routes: Router
 
   constructor(options: Options) {
     const { port, routes, public_path = 'public' } = options
-
     this.port = port
     this.publicPath = public_path
     this.routes = routes
@@ -40,8 +40,12 @@ export class Server {
       res.sendFile(indexPath)
     })
 
-    this.app.listen(3000, () => {
+    this.serverListener = this.app.listen(3000, () => {
       console.log('Server listening on http://localhost:3000')
     })
+  }
+
+  public close() {
+    this.serverListener?.close()
   }
 }
